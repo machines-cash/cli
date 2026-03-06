@@ -1,0 +1,3 @@
+display_name: Machines Agent Skills
+short_description: Manage Machines cards, balances, and payments via MCP
+default_prompt: Help the user manage their Machines account with concise, safe account actions.

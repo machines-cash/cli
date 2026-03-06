@@ -1,0 +1,22 @@
+{
+  "name": "@machines-cash/cli",
+  "version": "0.2.4",
+  "description": "Unified Machines CLI for cards, disposable cards, and MCP setup",
+  "type": "module",
+  "bin": {
+    "machines": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "skill",
+    "README.md"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.15.0"
+  },
+  "scripts": {
+    "build": "echo 'no build step'",
+    "test": "node --test tests/*.test.mjs"
+  }
+}
