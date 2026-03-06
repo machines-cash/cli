@@ -119,53 +119,16 @@ npx @machines-cash/cli completion bash
 - Flags support both `--key value` and `--key=value`.
 - Generate shell completion with `machines completion bash|zsh|fish`.
 
-## Local dev API testing (recommended)
-
-Use the repo wrapper so local tests always point to dev infrastructure and never overwrite your normal `~/.machines` auth.
+## Testing
 
 ```bash
-cd /path/to/machines-cash-monorepo
-
-# login against dev api + sandbox web handoff
-npm run cli:dev -- login
-
-# then run any CLI command the same way
-npm run cli:dev -- user create --interactive
-npm run cli:dev -- card list --json
-
-# run the full one-line agent smoke against dev api
-npm run cli:smoke:dev
+npm test
 ```
 
-Defaults used by `npm run cli:dev`:
+Coverage includes:
 
-- `MACHINES_API_URL=https://dev-api.machines.cash`
-- `MACHINES_WEB_APP_URL=https://sandbox.machines.cash`
-- `HOME=<repo>/.tmp/machines-cli-dev-home` (isolated auth/session files)
-
-Useful overrides:
-
-```bash
-# do not auto-open browser during login
-MACHINES_DEV_NO_BROWSER=1 npm run cli:dev -- login
-
-# point to a different API/web pair
-MACHINES_DEV_API_URL=https://dev-api.machines.cash \
-MACHINES_DEV_WEB_APP_URL=https://sandbox.machines.cash \
-npm run cli:dev -- doctor
-```
-
-`npm run cli:smoke:dev` covers the non-interactive agent-style surface:
-
-- `login --agent`
-- `user create` direct, `create user`, `--payload`, `--from-file`, `--browser`
-- `kyc status`, `kyc open`
-- full card lifecycle, including prefixed global flags like `--yes` and `--non-interactive`
-- `disposable create`
-- `completion`
-- `mcp install`, `mcp doctor`
-
-It intentionally skips the two human-browser flows:
-
-- `machines login` / `machines login --browser` completion
-- `machines mcp auth login`
+- login modes (`browser`, `agent`, saved-session reuse)
+- user create + KYC status/open/wait flows
+- card lifecycle (`create`, `list`, `reveal`, `update`, `lock`, `unlock`, `limit`, `delete`)
+- disposable card creation
+- MCP install + doctor
